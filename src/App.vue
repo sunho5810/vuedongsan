@@ -1,16 +1,11 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <div>
-    <h4>{{ products[0].name }}</h4>
-    <p>{{ products[0].price }} 만원</p>
+  <div class="menu">
+    <a href="javascript:void(0);" v-for="menu in menuList" :key="menu">{{menu}}</a>
   </div>
-  <div>
-    <h4>{{ products[1].name }}</h4>
-    <p>{{ products[1].price }} 만원</p>
-  </div>
-  <div>
-    <h4>{{ products[2].name }}</h4>
-    <p>{{ products[2].price }} 만원</p>
+
+  <div v-for="(item, i) in products" :key="i">
+    <h4>{{ item.name }}</h4>
+    <p>{{ item.price }} 만원</p>
   </div>
 </template>
 
@@ -20,6 +15,7 @@ export default {
   name: 'App',
   data(){
     return {
+      menuList: ["Home", "Shop", "About"],
       products: [
         {
           id: 0,
@@ -47,6 +43,16 @@ export default {
 <style lang="scss">
 #app{
   text-align: center;
+}
+.menu{
+  background-color: darkslateblue;
+  padding: 15px;
+  border-radius: 5px;
+
+  a{
+    color: white;
+    padding: 10px;
+  }
 }
 
 </style>
