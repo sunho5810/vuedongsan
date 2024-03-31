@@ -1,12 +1,16 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <div>
-    <h4>XX 원룸</h4>
-    <p>XX 만원</p>
+    <h4>{{ products[0].name }}</h4>
+    <p>{{ products[0].price }} 만원</p>
   </div>
   <div>
-    <h4>XX 원룸</h4>
-    <p>XX 만원</p>
+    <h4>{{ products[1].name }}</h4>
+    <p>{{ products[1].price }} 만원</p>
+  </div>
+  <div>
+    <h4>{{ products[2].name }}</h4>
+    <p>{{ products[2].price }} 만원</p>
   </div>
 </template>
 
@@ -14,18 +18,35 @@
 
 export default {
   name: 'App',
+  data(){
+    return {
+      products: [
+        {
+          id: 0,
+          name: "성동구원룸",
+          price: 50,
+        },
+        {
+          id: 1,
+          name: "일산동구원룸",
+          price: 60,
+        },
+        {
+          id: 2,
+          name: "팔달구원룸",
+          price: 70,
+        },
+      ],
+    }
+  },
   components: {
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<style lang="scss">
+#app{
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>
