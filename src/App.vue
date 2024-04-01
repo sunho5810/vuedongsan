@@ -1,13 +1,16 @@
 <template>
-  <!-- modal의 값이 true일때 모달창을 노출해주는 조건문 -->
+  <!-- 
+    modal의 값이 true일때 모달창을 노출해주는 조건문 
+    v-else, v-else-if 도 사용할 수 있다.
+  -->
   <div class="modal" v-if="modal === true">
     <div class="modal-container">
       <h3>상세페이지</h3>
-      <img :src="products[itemIdx].image" alt="">
-      <h4>{{ products[itemIdx].title }}</h4>
-      <p>{{ products[itemIdx].price }} 만원</p>
-      <p>{{ products[itemIdx].content }}</p>
-      <p>신고수 : {{ products[itemIdx].report }}</p>
+      <img :src="products[currentIdx].image" alt="">
+      <h4>{{ products[currentIdx].title }}</h4>
+      <p>{{ products[currentIdx].price }} 만원</p>
+      <p>{{ products[currentIdx].content }}</p>
+      <p>신고수 : {{ products[currentIdx].report }}</p>
       <button type="button" @click="closeModal">닫기</button>
     </div>
   </div>
@@ -44,7 +47,7 @@ export default {
   name: 'App',
   data(){
     return {
-      itemIdx: 0,
+      currentIdx: 0,
       menuList: ["Home", "Shop", "About"],
       products: data,
       modal: false,
@@ -58,7 +61,7 @@ export default {
     },
     openModal(idx){
       this.modal = true;
-      this.itemIdx = idx;
+      this.currentIdx = idx;
     },
     closeModal(){
       this.modal = false;
