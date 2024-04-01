@@ -8,7 +8,9 @@
     props를 사용하면 데이터 바인딩이 가능하긴 하지만, 코드가 복잡해질 수 있으니 신중하게 사용하자
    -->
   <!-- props 1 : 부모에서 자식에게 데이터를 전달하는 방식
-     v-bind:작명 or :작명 으로 props를 전송한다. -->
+      v-bind:작명 or :작명 으로 props를 전송한다. (변수 선언과 흡사함)
+      단순한 값도 전송 가능 - :작명="데이터" or 작명="데이터" 꼴로 전송 가능
+    -->
   <ModalDetail
     v-bind:products="products"
     :currentIdx="currentIdx"
@@ -32,10 +34,13 @@
   <div class="product-list">
     <!-- props 4 : props로 함수를 전달하면 함수의 원형을 전달한다. (매개변수 사용해줄 필요 X) -->
     <CardProduct
+      v-for="(products, i) in products"
+      :key="i"
       :products="products"
-      :openModal="openModal"
-      :increase="increase"
-    />
+      />
+      <!-- 
+        :openModal="openModal"
+      :increase="increase" -->
   </div>
 </template>
 
@@ -63,6 +68,13 @@ export default {
       menuList: ["Home", "Shop", "About"],
       products: data,
       modal: false,
+      /* props 5: 
+        object형식의 데이터를 따로따로 보내려면?
+        :작명="object.name" :작명="object.age"
+        한번에 보내려면?
+        v-bind="object"
+      */
+      object: { name: "kim", age: 20 },
     };
   },
   /* 함수 만드는 공간 */
@@ -82,7 +94,7 @@ export default {
   components: {
     /* 
       component 2 : 등록
-      선언 한 컴포넌트 명과 변수명이 같다면 BannerDiscount로 축약해서 사용할 수 있다.
+      선언 한 컴포넌트 명과 변수명이 같다면 한 번만 써서 축약해 사용할 수 있다.
     */
     BannerDiscount: BannerDiscount,
     ModalDetail,
