@@ -3,9 +3,10 @@
   <div class="modal" v-if="modal === true">
     <div class="modal-container">
       <h3>상세페이지</h3>
-      <img :src="products[itemIdx].imgSrc" alt="">
-      <h4>{{ products[itemIdx].name }}</h4>
+      <img :src="products[itemIdx].image" alt="">
+      <h4>{{ products[itemIdx].title }}</h4>
       <p>{{ products[itemIdx].price }} 만원</p>
+      <p>{{ products[itemIdx].content }}</p>
       <p>신고수 : {{ products[itemIdx].report }}</p>
       <button type="button" @click="closeModal">닫기</button>
     </div>
@@ -19,9 +20,12 @@
   <!-- v-for 사용 시 밑에 i처럼 인덱스를 받아올 수 있음 -->
   <div class="product-list">
     <div class="item" v-for="(item, i) in products" :key="i">
-      <img :src="item.imgSrc" alt="">
-      <h4><a href="javascript:void(0);" @click="openModal(i)">{{ item.name }}</a></h4>
-      <p>{{ item.price }} 만원</p>
+      <!-- 속성을 데이터 바인딩 하고 싶으면 :를 사용한다. -->
+      <img :src="item.image" alt="">
+      <h4><a href="javascript:void(0);" @click="openModal(i)">{{ item.title }}</a></h4>
+      <!-- 요소를 데이터 바인딩 하고 싶으면 {{  }}를 사용한다. -->
+      <p>{{ item.price }} 원</p>
+      <p>{{ item.content }}</p>
       <!-- v-on은 @로 축약 가능 -->
       <button type="button" v-on:click="increase(i)">허위매물신고</button><span>신고수 : {{ item.report }}</span>
     </div>
@@ -30,35 +34,19 @@
 
 <script>
 
+/*
+  가져온 데이터를 원하는 변수명으로 가져오고 경로를 적어준다.
+  export했던 형태 그대로 받아와야 한다.
+*/
+import data from './assets/oneroom';
+
 export default {
   name: 'App',
   data(){
     return {
       itemIdx: 0,
       menuList: ["Home", "Shop", "About"],
-      products: [
-        {
-          id: 0,
-          name: "성동구원룸",
-          price: 50,
-          report: 0,
-          imgSrc: "https://dimg.donga.com/wps/NEWS/IMAGE/2016/09/17/80313265.2.jpg",
-        },
-        {
-          id: 1,
-          name: "일산동구원룸",
-          price: 60,
-          report: 0,
-          imgSrc: "https://dimg.donga.com/wps/NEWS/IMAGE/2015/01/27/69300957.2.jpg",
-        },
-        {
-          id: 2,
-          name: "팔달구원룸",
-          price: 70,
-          report: 0,
-          imgSrc: "https://images.homify.com/v1472840207/p/photo/image/1640320/nachher04.jpg",
-        },
-      ],
+      products: data,
       modal: false,
     }
   },
@@ -91,8 +79,13 @@ div{
   text-align: center;
 }
 
+a{
+  text-decoration: none;
+}
+
 .menu{
   background-color: darkslateblue;
+  margin-bottom: 40px;
   padding: 15px;
   border-radius: 5px;
 
@@ -104,10 +97,6 @@ div{
 
 button{
   cursor: pointer;
-}
-
-img{
-  width: 400px;
 }
 
 .modal{
@@ -125,9 +114,11 @@ img{
 }
 
 .product-list{
-  margin-top: 40px;
   .item{
-    margin-top: 30px;
+    margin-bottom: 30px;
+    img{
+      width: 400px;
+    }
   }
   h4{
     a{
