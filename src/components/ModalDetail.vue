@@ -6,7 +6,7 @@
       <p>{{ products[currentIdx].price }} 만원</p>
       <p>{{ products[currentIdx].content }}</p>
       <p>신고수 : {{ products[currentIdx].report }}</p>
-      <button type="button" @click="closeModal">닫기</button>
+      <button type="button" @click="$emit('closeModal')">닫기</button>
       <!-- ex) props 3 : props는 read-only
         closeModal함수 형식 말고 modal = false 이런식으로 값의 재할당을 금지한다. -->
     </div>
@@ -23,7 +23,6 @@ export default {
     products: Array,
     currentIdx: Number,
     modal: Boolean,
-    closeModal: Function,
   }
 };
 </script>
