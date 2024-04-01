@@ -15,7 +15,7 @@
     v-bind:products="products"
     :currentIdx="currentIdx"
     :modal="modal"
-    :closeModal="closeModal"
+    @closeModal="closeModal"
   />
 
   <!-- v-for 2 : 사용 시 key값은 필수 -->
@@ -32,15 +32,19 @@
     사용 시 밑에 i처럼 인덱스를 받아올 수 있음 
   -->
   <div class="product-list">
-    <!-- props 4 : props로 함수를 전달하면 함수의 원형을 전달한다. (매개변수 사용해줄 필요 X) -->
+    <!-- props 4 : props로 함수를 전달하면 함수의 원형을 전달한다. (매개변수 사용해줄 필요 X) ***수정 안됨 -->
+    <!-- custom event 2 :
+      @자식이보낸편지 형태의 이벤트로 실행해준다.
+      만약 자식이 값과 함께 편지를 쓴다면?
+      $event를 값으로 사용한다.
+    -->
     <CardProduct
       v-for="(products, i) in products"
       :key="i"
       :products="products"
+      @openModal="openModal($event)"
+      @increase="increase($event)"
       />
-      <!-- 
-        :openModal="openModal"
-      :increase="increase" -->
   </div>
 </template>
 
