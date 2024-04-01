@@ -1,13 +1,22 @@
 <template>
-  <!-- 
-    modal의 값이 true일때 모달창을 노출해주는 조건문 
+  <!-- v-if 1 :
+    vue에서 쓰는 조건문
     v-else, v-else-if 도 사용할 수 있다.
   -->
 
-  <!-- component 4 : 컴포넌트를 너무 남발하면 데이터 바인딩 한게 꼬일 수 있으니 자제하자. -->
-  <ModalDetail/>
+  <!-- component 4 : 컴포넌트를 너무 남발하면 데이터 바인딩 한게 꼬일 수 있으니 자제하자. 
+    props를 사용하면 데이터 바인딩이 가능하긴 하지만, 코드가 복잡해질 수 있으니 신중하게 사용하자
+   -->
+  <!-- props 1 : 부모에서 자식에게 데이터를 전달하는 방식
+     v-bind:작명 or :작명 으로 props를 전송한다. -->
+  <ModalDetail
+    v-bind:products="products"
+    :currentIdx="currentIdx"
+    :modal="modal"
+    :closeModal="closeModal"
+  />
 
-  <!-- v-for 사용 시 key값은 필수 -->
+  <!-- v-for 2 : 사용 시 key값은 필수 -->
   <div class="menu">
     <a href="javascript:void(0);" v-for="menu in menuList" :key="menu">{{
       menu
@@ -15,28 +24,24 @@
   </div>
 
   <!-- component 3 : 사용 -->
-  <BannerDiscount/>
+  <BannerDiscount />
 
-  <!-- v-for 사용 시 밑에 i처럼 인덱스를 받아올 수 있음 -->
+  <!-- v-for 1 : vue에서 쓰는 반복문
+    사용 시 밑에 i처럼 인덱스를 받아올 수 있음 
+  -->
   <div class="product-list">
-    <div class="item" v-for="(item, i) in products" :key="i">
-      <!-- 속성을 데이터 바인딩 하고 싶으면 :를 사용한다. -->
-      <img :src="item.image" alt="" />
-      <h4>
-        <a href="javascript:void(0);" @click="openModal(i)">{{ item.title }}</a>
-      </h4>
-      <!-- 요소를 데이터 바인딩 하고 싶으면 {{  }}를 사용한다. -->
-      <p>{{ item.price }} 원</p>
-      <p>{{ item.content }}</p>
-      <!-- v-on은 @로 축약 가능 -->
-      <button type="button" v-on:click="increase(i)">허위매물신고</button
-      ><span>신고수 : {{ item.report }}</span>
-    </div>
+    <!-- props 4 : props로 함수를 전달하면 함수의 원형을 전달한다. (매개변수 사용해줄 필요 X) -->
+    <CardProduct
+      :products="products"
+      :openModal="openModal"
+      :increase="increase"
+    />
   </div>
 </template>
 
 <script>
 /*
+  import 1 :
   가져온 데이터를 원하는 변수명으로 가져오고 경로를 적어준다.
   export했던 형태 그대로 받아와야 한다.
 */
@@ -45,9 +50,13 @@ import data from "./assets/oneroom";
 /* component 1 : import */
 import BannerDiscount from "./components/BannerDiscount.vue";
 import ModalDetail from "./components/ModalDetail.vue";
+import CardProduct from "./components/CardProduct.vue";
 
 export default {
   name: "App",
+  /* data생성 : 
+    데이터는 부모도 쓰는 데이터라면 되도록 최상위 부모 컴포넌트에 만들어둔다.
+  */
   data() {
     return {
       currentIdx: 0,
@@ -77,6 +86,7 @@ export default {
     */
     BannerDiscount: BannerDiscount,
     ModalDetail,
+    CardProduct,
   },
 };
 </script>
