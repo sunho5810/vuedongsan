@@ -136,32 +136,4 @@ a {
 button {
   cursor: pointer;
 }
-
-.modal {
-  position: fixed;
-  padding: 20px;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(black, 0.5);
-  &-container {
-    width: 100%;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-  }
-}
-
-.product-list {
-  .item {
-    margin-bottom: 30px;
-    img {
-      width: 400px;
-    }
-  }
-  h4 {
-    a {
-      color: black;
-    }
-  }
-}
 </style>

@@ -17,6 +17,7 @@
     <!-- data binding 2 : 요소를 데이터 바인딩 하고 싶으면 {{  }}를 사용한다. -->
     <p>{{ products.price }} 원</p>
     <p>{{ products.content }}</p>
+
     <!-- event 1 :  v-on은 @로 축약 가능 -->
     <button type="button" v-on:click="$emit('increase', products.id)">허위매물신고</button
     ><span>신고수 : {{ products.report }}</span>
@@ -44,4 +45,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.product-list {
+  .item {
+    margin-bottom: 30px;
+    img {
+      width: 400px;
+    }
+  }
+  h4 {
+    a {
+      color: black;
+    }
+  }
+}
+</style>
