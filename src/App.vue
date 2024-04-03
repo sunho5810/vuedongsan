@@ -11,12 +11,20 @@
       v-bind:작명 or :작명 으로 props를 전송한다. (변수 선언과 흡사함)
       단순한 값도 전송 가능 - :작명="데이터" or 작명="데이터" 꼴로 전송 가능
     -->
-  <ModalDetail
-    v-bind:products="products"
-    :currentIdx="currentIdx"
-    :modal="modal"
-    @closeModal="closeModal"
-  />
+    <!-- addClass & removeClass : :class=""형식으로 object형식과 같이 여러가지 형식으로 사용 가능하다.
+      ex) :class="{active : true}" :class="{active: false}"
+    -->
+    <!-- transition 1 : transition 태그로 쉽게 애니메이션을 넣어줄 수 있다.
+      name 속성으로 작명 해준다.
+    -->
+  <transition name="fade">
+    <ModalDetail
+      v-bind:products="products"
+      :currentIdx="currentIdx"
+      :modal="modal"
+      @closeModal="closeModal"
+    />
+  </transition>
 
   <!-- v-for 2 : 사용 시 key값은 필수 -->
   <div class="menu">
@@ -135,5 +143,54 @@ a {
 
 button {
   cursor: pointer;
+}
+
+/* transition 2 : 총 3개의 클래스 명을 작성한다. 
+  .작명한name-enter-from > 시작 시 스타일
+  .작명한name-enter-active
+  .작명한name-enter-to > 끝날 시 스타일
+  클래스에 스타일을 줄 수 있다.
+*/
+.fade{
+  &-enter-from{
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  &-enter-active{
+    transition: all 1s;
+  }
+  &-enter-to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* transition 3 : 후속 애니메이션도 넣을 수 있다.
+  .작명한name-leave-from > 시작 시 스타일
+  .작명한name-leave-active
+  .작명한name-leave-to > 끝날 시 스타일
+  클래스에 스타일을 줄 수 있다.
+*/
+.fade{
+  &-leave-from{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &-leave-active{
+    transition: all 1s;
+  }
+  &-leave-to{
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+
+.start{
+  opacity: 0;
+  transition: all 1s;
+}
+
+.end{
+  opacity: 1;
 }
 </style>
