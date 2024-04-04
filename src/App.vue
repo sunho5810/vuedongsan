@@ -36,6 +36,14 @@
   <!-- component 3 : 사용 -->
   <BannerDiscount />
 
+  <!-- <button @click="priceSort">가격 순</button> -->
+  <select v-model="sortVal">
+    <option value="default" selected>기본</option>
+    <option value="high-price">가격 높은 순</option>
+    <option value="low-price">가격 낮은 순</option>
+    <option value="alphabet">가나다순</option>
+  </select>
+
   <!-- v-for 1 : vue에서 쓰는 반복문
     사용 시 밑에 i처럼 인덱스를 받아올 수 있음 
   -->
@@ -79,6 +87,7 @@ export default {
       currentIdx: 0,
       menuList: ["Home", "Shop", "About"],
       products: data,
+      originaPproducts: [...data],
       modal: false,
       /* props 5: 
         object형식의 데이터를 따로따로 보내려면?
@@ -87,6 +96,7 @@ export default {
         v-bind="object"
       */
       object: { name: "kim", age: 20 },
+      sortVal: "default",
     };
   },
   /* 함수 만드는 공간 */
@@ -102,6 +112,43 @@ export default {
     closeModal() {
       this.modal = false;
     },
+    priceSort(){
+      /* sort 1 : 정렬 해주는 함수
+        배열데이터.sort() 하면 자동으로 정렬이 된다.
+        하지만 문자열 정렬이다.
+
+        숫자를 정렬 하고 싶으면?
+        var arr = [3, 5, 2]; 라는 데이터가 있으면
+        arr.sort(function(a, b){
+          return a - b;
+        });
+        로 정렬을 해주는데
+        a에서 b를 뺀 값이 음수면 a를 앞으로, b를 뒤로 정렬 해준다.
+      */
+      this.products.sort(function(a, b){
+        return a.price - b.price;
+      });
+    },
+  },
+  watch: {
+    sortVal(){
+      if(this.sortVal === "default"){
+        this.products = [...this.originaPproducts];
+      } else if(this.sortVal === "low-price"){
+        this.products.sort(function(a, b){
+          return a.price - b.price;
+        });
+      } else if(this.sortVal === "high-price"){
+        this.products.sort(function(a, b){
+          return b.price - a.price;
+        });
+      } else if(this.sortVal === "alphabet"){
+        this.products.sort(function(a, b){
+          /*  */
+          return a.title.localeCompare(b.title);
+        });
+      }
+    }
   },
   components: {
     /* 
