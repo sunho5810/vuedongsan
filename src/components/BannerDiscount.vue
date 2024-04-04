@@ -1,6 +1,6 @@
 <template>
   <div class="discount">
-    <h4>지금 결제하면 20% 할인!!</h4>
+    <h4>지금 결제하면 {{ discountVal }}% 할인!!</h4>
   </div>
 </template>
 
@@ -11,6 +11,9 @@ export default {
     **최근 뷰는 최소 두단어로 컴포넌트 명을 만드는 것을 강요한다.
   */
   name: "BannerDiscount",
+  props:{
+    discountVal: Number,
+  },
 };
 </script>
 
