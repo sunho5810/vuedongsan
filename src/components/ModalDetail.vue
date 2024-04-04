@@ -13,6 +13,11 @@
       <!-- watcher 1 : 데이터를 감시하는 함수
         특히 사용자에게서 input으로 데이터를 입력 받아 유효성 검사를 할 때 자주 사용한다.
       -->
+      <!-- v-model 2 : 수식
+        v-model.lazy : 엔터를 누르거나 포커스가 벗어나는 등의 이벤트가 발생할 경우에 값이 반영
+        v-model.number : input은 string타입으로 값을 받아오기 때문에 .number로 숫자 타입으로 바꿔서 받아낼수 있다.
+        v-model.trim : 입력값의 앞과 뒤의 공백을 제거
+      -->
       <input type="text" v-model="month">
       <p>{{ month }}개월 선택함 : {{ month * products[currentIdx].price }} 만원</p>
 
@@ -44,10 +49,20 @@ export default {
       if(data >= 13){
         alert("13이상 입력하지 마세요");
         this.month = before;
-      } else if(typeof(data) === "string"){
+      } /* else if(data <= 0){
+        alert("0이상 입력하세요");
+        this.month = before;
+      } */ else if(isNaN(data) === true){/* isNaN()안의 값이 string이면 true, number이면 false를 반환 */
         alert("숫자만 입력해주세요.");
         this.month = before;
       }
+      return before;
+    }
+  },
+  updated(){
+    if(this.month == 2){
+      alert("우린 2개월은 안해요");
+      this.month = 1;
     }
   },
   props: {

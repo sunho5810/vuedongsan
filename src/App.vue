@@ -34,7 +34,17 @@
   </div>
 
   <!-- component 3 : 사용 -->
-  <BannerDiscount />
+  <BannerDiscount :discountVal="discountVal" />
+
+  <!-- lifecycle 1 : 컴포넌트가 웹에 출력될 때 거치는 단계
+      1. create단계 - 데이터만 존재하는 단계
+      2. mount 단계 - template 사이에 있던 데이터를 실제 html으로 변환
+      3. 컴포넌트 생성 - 웹에 렌더링 해줌
+      4. update단계 : 데이터가 변하면 컴포넌트를 재렌더링 해주는 단계
+      5. unmount단계 : 컴포넌트가 삭제될 때 실행되는 단계
+
+      ** lifecycle hook 1 : lifecycle의 단계들을 진행중에 딴지를 걸 수 있음
+  -->
 
   <!-- <button @click="priceSort">가격 순</button> -->
   <select v-model="sortVal">
@@ -86,6 +96,7 @@ export default {
     return {
       currentIdx: 0,
       menuList: ["Home", "Shop", "About"],
+      /* [...data]는 배열을 직접 참조 하는게 아니라 사본을 만들어 원본에 영향이 가지 않게 하는 방식 */
       products: data,
       originaPproducts: [...data],
       modal: false,
@@ -97,6 +108,7 @@ export default {
       */
       object: { name: "kim", age: 20 },
       sortVal: "default",
+      discountVal: 20,
     };
   },
   /* 함수 만드는 공간 */
@@ -144,11 +156,32 @@ export default {
         });
       } else if(this.sortVal === "alphabet"){
         this.products.sort(function(a, b){
-          /*  */
+          /* 비교대상1.localeCompare(비교대상2) 은 문자열을 비교하여 -1, 0, 1을 반환한다. */
           return a.title.localeCompare(b.title);
         });
       }
     }
+  },
+  /* lifecycle hook 2 : hook을 사용 하고 싶으면 여기서 사용한다.
+    beforeCreate()
+    created()
+    beforeMount()
+    mounted()
+    beforeUpdate()
+    updated()
+    beforeUnmount()
+    unmounted()
+    등등
+    서버에서 데이터 가져올 때도 사용함
+  */
+  mounted(){
+    setInterval(()=>{
+      if(this.discountVal > 0){
+        this.discountVal--;
+      } else {
+        clearInterval();
+      }
+    }, 1000);
   },
   components: {
     /* 
